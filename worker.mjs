@@ -4,7 +4,7 @@ import {Readable} from "node:stream";
 
 const firstBuffer = Buffer.from("raw buffer", "utf8");
 console.log("[W] sending the first buffer", firstBuffer);
-parentPort.postMessage(firstBuffer);
+parentPort.postMessage({name: "first", data: firstBuffer});
 
 const secondBuffer = Buffer.from("another buffer", "utf8");
 
@@ -17,10 +17,10 @@ const arrayBuf = (() => {
 })();
 
 console.log("[W] sending the second buffer", secondBuffer, arrayBuf);
-parentPort.postMessage(arrayBuf, [arrayBuf]);
+parentPort.postMessage({name: "second", data: arrayBuf}, [arrayBuf]);
 
 const thirdBuffer = Buffer.from("third", "utf8");
 const readableStream = Readable.toWeb(Readable.from(thirdBuffer));
 console.log("[W] sending the third buffer", thirdBuffer);
-parentPort.postMessage(readableStream, [readableStream])
+parentPort.postMessage({name: "third", data: readableStream}, [readableStream])
 
